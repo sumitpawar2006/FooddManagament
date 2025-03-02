@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="137.54" height="111.562" viewBox="0 0 137.54 111.562">
+    <defs>
+        <clipPath id="lrpkit8n4f">
+            <path data-name="Path 18732" d="M0 243.531v13.64h23.52v-13.64l-11.76-9.094z" transform="translate(0 -234.437)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="wz86fj34pg">
+            <path data-name="Path 18733" d="M75.231 195.531v31.827h23.52v-31.827l-11.761-9.094z" transform="translate(-75.231 -186.437)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="ocwgyrct6h">
+            <path data-name="Path 18734" d="M150.462 171.531v40.921h23.52v-40.921l-11.67-9.094z" transform="translate(-150.462 -162.437)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="46pyzfv5ki">
+            <path data-name="Path 18735" d="M225.694 135.531v54.561h23.52v-54.561l-11.76-9.094z" transform="translate(-225.694 -126.437)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="sry364gvnj">
+            <path data-name="Path 18736" d="M300.925 87.531v72.748h23.52V87.531l-11.76-9.094z" transform="translate(-300.925 -78.437)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="1nzvvbfr0k">
+            <path data-name="Rectangle 6216" style="fill:none" d="M0 0h137.54v111.562H0z"/>
+        </clipPath>
+        <clipPath id="88zh3yzb1l">
+            <path data-name="Path 18738" d="M25.613 153.708a2.084 2.084 0 1 0 2.084-2.084 2.084 2.084 0 0 0-2.084 2.084" transform="translate(-25.613 -151.624)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="5qcz6pb0yn">
+            <path data-name="Path 18739" d="M100.769 127.709a2.084 2.084 0 1 0 2.084-2.084 2.084 2.084 0 0 0-2.084 2.084" transform="translate(-100.769 -125.625)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="2rm0whm6qp">
+            <path data-name="Path 18740" d="M176 105.959a2.084 2.084 0 1 0 2.084-2.084 2.084 2.084 0 0 0-2.084 2.084" transform="translate(-176 -103.875)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="rt31brte7r">
+            <path data-name="Path 18741" d="M251.231 55.709a2.084 2.084 0 1 0 2.084-2.084 2.084 2.084 0 0 0-2.084 2.084" transform="translate(-251.231 -53.625)" style="fill:none"/>
+        </clipPath>
+        <clipPath id="trtamcd9vt">
+            <circle data-name="Ellipse 582" cx="2.084" cy="2.084" r="2.084" style="fill:none"/>
+        </clipPath>
+        <linearGradient id="7jgs0xa1aa" x1=".11" y1=".884" x2=".122" y2=".884" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fdc830"/>
+            <stop offset="1" stop-color="#f37335"/>
+        </linearGradient>
+        <linearGradient id="kkbn71zmzb" x1="-.602" y1=".939" x2="-.591" y2=".939" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff839d"/>
+            <stop offset="1" stop-color="#f50b9a"/>
+        </linearGradient>
+        <linearGradient id="dnmxzu7k8c" x1="-1.363" y1=".958" x2="-1.353" y2=".958" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff63de"/>
+            <stop offset="1" stop-color="#b122e5"/>
+        </linearGradient>
+        <linearGradient id="180p52nmmd" x1="-1.753" y1=".969" x2="-1.744" y2=".969" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#8e2de2"/>
+            <stop offset="1" stop-color="#4a00e0"/>
+        </linearGradient>
+        <linearGradient id="bpcbc05jpe" x1="-2.39" y1=".981" x2="-2.381" y2=".981" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#9c27b0"/>
+            <stop offset="1" stop-color="#4a148c"/>
+        </linearGradient>
+        <linearGradient id="n8grsv4z1m" x1="-1.679" y1="10.115" x2="-1.609" y2="10.115" xlink:href="#7jgs0xa1aa"/>
+        <linearGradient id="grcex78u3o" x1="-6.746" y1="11.635" x2="-6.677" y2="11.635" xlink:href="#kkbn71zmzb"/>
+        <linearGradient id="s1st049hiq" x1="-11.575" y1="12.812" x2="-11.508" y2="12.812" xlink:href="#dnmxzu7k8c"/>
+        <linearGradient id="k76ig93mys" x1="-16.855" y1="16.407" x2="-16.787" y2="16.407" xlink:href="#180p52nmmd"/>
+        <linearGradient id="53ocdmw0ku" x1="-22.809" y1="20.787" x2="-22.739" y2="20.787" xlink:href="#bpcbc05jpe"/>
+    </defs>
+    <g data-name="Group 12859">
+        <g data-name="Group 12858">
+            <g data-name="Group 12837">
+                <g data-name="Group 12836" style="clip-path:url(#lrpkit8n4f)" transform="translate(0 88.828)">
+                    <path data-name="Rectangle 6211" transform="rotate(-21.058 4.084 21.975)" style="fill:url(#7jgs0xa1aa)" d="M0 0h30.118v29.667H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12839">
+                <g data-name="Group 12838" style="clip-path:url(#wz86fj34pg)" transform="translate(28.505 70.641)">
+                    <path data-name="Rectangle 6212" transform="rotate(-20.863 7.286 39.58)" style="fill:url(#kkbn71zmzb)" d="M0 0h36.552v46.615H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12841">
+                <g data-name="Group 12840" style="clip-path:url(#ocwgyrct6h)" transform="translate(57.01 61.547)">
+                    <path data-name="Rectangle 6213" transform="rotate(-16.73 7.18 48.903)" style="fill:url(#dnmxzu7k8c)" d="M0 0h36.914v54.667H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12843">
+                <g data-name="Group 12842" style="clip-path:url(#46pyzfv5ki)" transform="translate(85.515 47.907)">
+                    <path data-name="Rectangle 6214" transform="rotate(-19.21 10.505 61.948)" style="fill:url(#180p52nmmd)" d="M0 0h43.174v67.85H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12845">
+                <g data-name="Group 12844" style="clip-path:url(#sry364gvnj)" transform="translate(114.02 29.72)">
+                    <path data-name="Rectangle 6215" transform="rotate(-14.76 10.308 80.446)" style="fill:url(#bpcbc05jpe)" d="M0 0h43.523v85.132H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12847">
+                <g data-name="Group 12846" style="clip-path:url(#1nzvvbfr0k)">
+                    <path data-name="Path 18737" d="M1.038 71.689S13.918 58.048 40.91 53.5c19.713-3.319 38.878-10.01 58.639-28.542 9.992-9.371 19.06-15.578 26.88-18.81" transform="translate(-.645 -3.819)" style="stroke:#bdbdbd;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;fill:none"/>
+                </g>
+            </g>
+            <g data-name="Group 12849">
+                <g data-name="Group 12848" style="clip-path:url(#88zh3yzb1l)" transform="translate(9.705 57.45)">
+                    <path data-name="Rectangle 6217" transform="rotate(-21.631 .767 4.02)" style="fill:url(#n8grsv4z1m)" d="M0 0h5.411v5.411H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12851">
+                <g data-name="Group 12850" style="clip-path:url(#5qcz6pb0yn)" transform="translate(38.181 47.599)">
+                    <path data-name="Rectangle 6218" transform="rotate(-25.53 .898 3.965)" style="fill:url(#grcex78u3o)" d="M0 0h5.557v5.557H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12853">
+                <g data-name="Group 12852" style="clip-path:url(#2rm0whm6qp)" transform="translate(66.686 39.358)">
+                    <path data-name="Rectangle 6219" transform="rotate(-30.08 1.043 3.887)" style="fill:url(#s1st049hiq)" d="M0 0h5.695v5.695H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12855">
+                <g data-name="Group 12854" style="clip-path:url(#rt31brte7r)" transform="translate(95.191 20.319)">
+                    <path data-name="Rectangle 6220" transform="rotate(-27 .944 3.938)" style="fill:url(#k76ig93mys)" d="M0 0h5.605v5.605H0z"/>
+                </g>
+            </g>
+            <g data-name="Group 12857">
+                <g data-name="Group 12856" style="clip-path:url(#trtamcd9vt)" transform="translate(123.704)">
+                    <path data-name="Rectangle 6221" transform="rotate(-21.286 .756 4.026)" style="fill:url(#53ocdmw0ku)" d="M0 0h5.397v5.397H0z"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
