@@ -70,7 +70,7 @@
         <ul class="trust-list" aria-label="Service benefits">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>No long-term lock-in</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Veg and non-veg choices</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>COD and online payment</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>COD now, online payment later</li>
         </ul>
       </div>
 
@@ -110,7 +110,7 @@
       <div><strong>4</strong><span>meal styles</span></div>
       <div><strong>3</strong><span>flexible plans</span></div>
       <div><strong>₹99</strong><span>starting price</span></div>
-      <div><strong>2</strong><span>payment options</span></div>
+      <div><strong>COD</strong><span>active payment method</span></div>
     </section>
 
     <section class="section audience-section" id="made-for-you">
@@ -282,7 +282,7 @@
       </div>
       <ol class="steps-list">
         <li><span class="step-number">01</span><div><h3>Pick your tiffin</h3><p>Choose the meal and frequency that fit your routine.</p></div></li>
-        <li><span class="step-number">02</span><div><h3>Choose how to pay</h3><p>Use secure Razorpay Checkout or keep it simple with COD.</p></div></li>
+        <li><span class="step-number">02</span><div><h3>Confirm with COD</h3><p>Pay when the tiffin arrives. Online checkout is reserved for a future update.</p></div></li>
         <li><span class="step-number">03</span><div><h3>Track with one ID</h3><p>Look up, follow, or request cancellation of your order.</p></div></li>
       </ol>
     </section>
@@ -310,8 +310,8 @@
         <p>The site works locally in demo mode and switches to the real database and payment API when deployment credentials are added.</p>
       </div>
       <div class="faq-grid">
-        <details><summary>Can I pay by UPI or card?</summary><p>Yes. Online checkout uses Razorpay, which can offer UPI, cards, netbanking, and supported wallets based on the merchant account.</p></details>
-        <details><summary>Can I choose cash on delivery?</summary><p>Yes. COD creates a confirmed order without opening the payment gateway.</p></details>
+        <details><summary>Can I pay by UPI or card?</summary><p>Not yet. The online option is kept visible for a future update, but only cash on delivery can be selected today.</p></details>
+        <details><summary>How does cash on delivery work?</summary><p>COD confirms the order without taking any online payment. Pay when your tiffin arrives.</p></details>
         <details><summary>How do I manage an order?</summary><p>Open “Manage order” and enter the generated order ID with the mobile number used at checkout.</p></details>
         <details><summary>What happens when I cancel a paid order?</summary><p>The site sends a cancellation request to the admin. A refund must then be processed through the payment provider.</p></details>
       </div>
@@ -343,7 +343,7 @@
   <dialog class="dialog" id="order-dialog" aria-labelledby="order-title">
     <div class="dialog-shell">
       <button class="dialog-close" type="button" aria-label="Close order form" data-close-dialog><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
-      <div class="dialog-heading"><p class="eyebrow">Order a tiffin</p><h2 id="order-title">Let’s plan your meal.</h2><p>Review the total before choosing COD or secure online payment.</p></div>
+      <div class="dialog-heading"><p class="eyebrow">Order a tiffin</p><h2 id="order-title">Let’s plan your meal.</h2><p>Review the total and place your cash-on-delivery order.</p></div>
 
       <form id="order-form" novalidate>
         <div class="form-error-summary" id="order-errors" role="alert" tabindex="-1" hidden></div>
@@ -408,14 +408,14 @@
         <fieldset class="payment-fieldset">
           <legend>Payment method</legend>
           <div class="payment-options">
-            <label class="payment-option" data-online-option><input type="radio" name="paymentMethod" value="razorpay"><span class="payment-radio"></span><span><strong>Pay online</strong><small data-online-description>UPI, cards, netbanking, and wallets</small><span class="payment-status" data-online-status hidden>Setup needed</span></span></label>
+            <label class="payment-option is-unavailable" data-online-option><input type="radio" name="paymentMethod" value="razorpay" disabled><span class="payment-radio"></span><span><strong>Pay online</strong><small data-online-description>UPI, cards, netbanking, and wallets</small><span class="payment-status" data-online-status>Coming soon</span></span></label>
             <label class="payment-option"><input type="radio" name="paymentMethod" value="cod" checked><span class="payment-radio"></span><span><strong>Cash on delivery</strong><small>Pay when the tiffin arrives</small></span></label>
           </div>
         </fieldset>
 
         <div class="order-total" aria-live="polite"><span>Estimated plan total</span><strong id="estimated-total">Select a meal</strong></div>
-        <button class="button button-primary button-submit" type="submit" data-submit-order><span data-submit-label>Continue to payment</span><span class="button-spinner" aria-hidden="true" hidden></span></button>
-        <p class="form-note" data-payment-note>Razorpay Checkout opens securely after you continue.</p>
+        <button class="button button-primary button-submit" type="submit" data-submit-order><span data-submit-label>Place COD order</span><span class="button-spinner" aria-hidden="true" hidden></span></button>
+        <p class="form-note" data-payment-note>No online payment is taken. Pay when the tiffin arrives.</p>
       </form>
 
       <section class="order-success" id="order-success" aria-live="polite" tabindex="-1" hidden>

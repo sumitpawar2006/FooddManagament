@@ -113,7 +113,7 @@
   function paymentLabel() {
     const method = new FormData(orderForm).get("paymentMethod");
     if (method === "cod") return "Place COD order";
-    return state.onlinePayments ? "Continue to payment" : "Check online setup";
+    return "Online payment coming soon";
   }
 
   function showEnvironment(title, message) {
@@ -138,24 +138,16 @@
     const onlineOption = document.querySelector("[data-online-option]");
     const onlineDescription = document.querySelector("[data-online-description]");
     const onlineStatus = document.querySelector("[data-online-status]");
-    onlineRadio.disabled = false;
-    onlineOption.classList.toggle("is-unavailable", !state.onlinePayments);
-    onlineStatus.hidden = state.onlinePayments;
-    onlineDescription.textContent = state.onlinePayments
-      ? "UPI, cards, netbanking, and wallets"
-      : "Tap to see what is needed before online checkout";
+    onlineRadio.disabled = true;
+    onlineOption.classList.add("is-unavailable");
+    onlineStatus.hidden = false;
+    onlineStatus.textContent = "Coming soon";
+    onlineDescription.textContent = "UPI, cards, netbanking, and wallets";
+    codRadio.checked = true;
     if (!state.database) {
-      codRadio.checked = true;
-      showEnvironment("Local demo mode", "COD orders work in this browser. Connect Supabase and Razorpay to enable shared orders and online payments.");
-    } else if (!state.onlinePayments) {
-      codRadio.checked = true;
-      showEnvironment("Payments setup pending", "The order database is live. Add Razorpay credentials to enable UPI and card payments.");
+      showEnvironment("Local demo mode", "COD orders work in this browser. Connect Supabase to enable shared orders and the admin dashboard.");
     } else {
-      onlineRadio.disabled = false;
-      onlineRadio.checked = true;
-      if (state.paymentMode === "test") {
-        showEnvironment("Razorpay test mode", "Online checkout is safe to test; no real money is collected with test credentials.");
-      }
+      environmentBanner.hidden = true;
     }
     updatePaymentCopy();
   }
@@ -185,7 +177,7 @@
       const input = orderForm.querySelector(`[data-order-custom="${entry[0]}"]`);
       if (input) input.value = state.customTiffin[entry[1]];
     });
-    if (!state.onlinePayments) orderForm.querySelector('input[value="cod"]').checked = true;
+    orderForm.querySelector('input[value="cod"]').checked = true;
     orderForm.hidden = false;
     orderSuccess.hidden = true;
     document.querySelector("#order-errors").hidden = true;
@@ -267,15 +259,8 @@
   }
 
   function updatePaymentCopy() {
-    const method = new FormData(orderForm).get("paymentMethod");
     document.querySelector("[data-submit-label]").textContent = paymentLabel();
-    document.querySelector("[data-payment-note]").textContent = method === "cod"
-      ? "No online payment is taken. The order is marked for cash collection."
-      : !state.onlinePayments
-        ? "Online checkout is not connected yet. Choose COD now, or connect Supabase and Razorpay before accepting online orders."
-      : state.paymentMode === "live"
-        ? "Secure Razorpay Checkout opens after you continue."
-        : "Razorpay test checkout opens after you continue; no real money is collected.";
+    document.querySelector("[data-payment-note]").textContent = "No online payment is taken. Pay when the tiffin arrives.";
   }
 
   [mealPlan, frequency, quantity].forEach(function (field) {
@@ -283,12 +268,7 @@
     field.addEventListener("input", updateEstimate);
   });
   orderForm.querySelectorAll('input[name="paymentMethod"]').forEach(function (radio) {
-    radio.addEventListener("change", function () {
-      updatePaymentCopy();
-      if (radio.value === "razorpay" && radio.checked && !state.onlinePayments) {
-        showToast("Online payment needs Supabase and Razorpay setup. COD is ready to use now.");
-      }
-    });
+    radio.addEventListener("change", updatePaymentCopy);
   });
 
   const validationFields = [

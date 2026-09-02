@@ -382,7 +382,7 @@ h3 { margin: 0; font-size: 1.2rem; line-height: 1.25; }
 .payment-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .payment-option { position: relative; display: grid; min-height: 98px; grid-template-columns: 20px 1fr; align-items: center; gap: 12px; padding: 16px; border: 1px solid rgba(255,255,255,.18); border-radius: 13px; background: rgba(255,255,255,.025); cursor: pointer; transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease; }
 .payment-option:has(input:checked) { border-color: var(--primary); background: rgba(200,243,106,.075); box-shadow: 0 0 0 2px rgba(200,243,106,.09); }
-.payment-option:has(input:disabled) { cursor: not-allowed; opacity: .48; }
+.payment-option:has(input:disabled) { cursor: not-allowed; opacity: .64; }
 .payment-option.is-unavailable { border-style: dashed; }
 .payment-option.is-unavailable:has(input:checked) { border-color: rgba(255,198,107,.62); background: rgba(255,198,107,.07); box-shadow: 0 0 0 2px rgba(255,198,107,.07); }
 .payment-option input { position: absolute; opacity: 0; }
