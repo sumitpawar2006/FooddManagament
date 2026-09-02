@@ -320,7 +320,7 @@
         <fieldset class="payment-fieldset">
           <legend>Payment method</legend>
           <div class="payment-options">
-            <label class="payment-option"><input type="radio" name="paymentMethod" value="razorpay" disabled><span class="payment-radio"></span><span><strong>Pay online</strong><small>UPI, cards, netbanking, and wallets</small></span></label>
+            <label class="payment-option" data-online-option><input type="radio" name="paymentMethod" value="razorpay"><span class="payment-radio"></span><span><strong>Pay online</strong><small data-online-description>UPI, cards, netbanking, and wallets</small><span class="payment-status" data-online-status hidden>Setup needed</span></span></label>
             <label class="payment-option"><input type="radio" name="paymentMethod" value="cod" checked><span class="payment-radio"></span><span><strong>Cash on delivery</strong><small>Pay when the tiffin arrives</small></span></label>
           </div>
         </fieldset>

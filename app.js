@@ -72,7 +72,8 @@
 
   function paymentLabel() {
     const method = new FormData(orderForm).get("paymentMethod");
-    return method === "cod" ? "Place COD order" : "Continue to payment";
+    if (method === "cod") return "Place COD order";
+    return state.onlinePayments ? "Continue to payment" : "Check online setup";
   }
 
   function showEnvironment(title, message) {
@@ -94,12 +95,19 @@
 
     const onlineRadio = orderForm.querySelector('input[value="razorpay"]');
     const codRadio = orderForm.querySelector('input[value="cod"]');
+    const onlineOption = document.querySelector("[data-online-option]");
+    const onlineDescription = document.querySelector("[data-online-description]");
+    const onlineStatus = document.querySelector("[data-online-status]");
+    onlineRadio.disabled = false;
+    onlineOption.classList.toggle("is-unavailable", !state.onlinePayments);
+    onlineStatus.hidden = state.onlinePayments;
+    onlineDescription.textContent = state.onlinePayments
+      ? "UPI, cards, netbanking, and wallets"
+      : "Tap to see what is needed before online checkout";
     if (!state.database) {
-      onlineRadio.disabled = true;
       codRadio.checked = true;
       showEnvironment("Local demo mode", "COD orders work in this browser. Connect Supabase and Razorpay to enable shared orders and online payments.");
     } else if (!state.onlinePayments) {
-      onlineRadio.disabled = true;
       codRadio.checked = true;
       showEnvironment("Payments setup pending", "The order database is live. Add Razorpay credentials to enable UPI and card payments.");
     } else {
@@ -200,6 +208,8 @@
     document.querySelector("[data-submit-label]").textContent = paymentLabel();
     document.querySelector("[data-payment-note]").textContent = method === "cod"
       ? "No online payment is taken. The order is marked for cash collection."
+      : !state.onlinePayments
+        ? "Online checkout is not connected yet. Choose COD now, or connect Supabase and Razorpay before accepting online orders."
       : state.paymentMode === "live"
         ? "Secure Razorpay Checkout opens after you continue."
         : "Razorpay test checkout opens after you continue; no real money is collected.";
@@ -209,7 +219,14 @@
     field.addEventListener("change", updateEstimate);
     field.addEventListener("input", updateEstimate);
   });
-  orderForm.querySelectorAll('input[name="paymentMethod"]').forEach(function (radio) { radio.addEventListener("change", updatePaymentCopy); });
+  orderForm.querySelectorAll('input[name="paymentMethod"]').forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      updatePaymentCopy();
+      if (radio.value === "razorpay" && radio.checked && !state.onlinePayments) {
+        showToast("Online payment needs Supabase and Razorpay setup. COD is ready to use now.");
+      }
+    });
+  });
 
   const validationFields = [
     { id: "meal-plan", message: "Choose a tiffin from the menu." },
@@ -353,6 +370,14 @@
     event.preventDefault();
     if (!validateOrderForm()) return;
     const payload = formPayload();
+    if (payload.paymentMethod === "razorpay" && !state.onlinePayments) {
+      const message = "Online payment is not connected yet. Choose Cash on Delivery, or add the Supabase and Razorpay deployment credentials.";
+      showToast(message);
+      document.querySelector("#order-errors").textContent = message;
+      document.querySelector("#order-errors").hidden = false;
+      document.querySelector("#order-errors").focus();
+      return;
+    }
     setLoading(true, payload.paymentMethod === "cod" ? "Placing order…" : "Opening checkout…");
     try {
       if (!state.database) {

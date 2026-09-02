@@ -249,14 +249,16 @@ if (canvas && shell && motionButton) {
     let autoRotation = 0;
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reducedMotion = motionPreference.matches;
+    let motionOverride = false;
 
     function updateMotionControl() {
-      const stopped = paused || reducedMotion;
-      shell.classList.toggle("is-reduced-motion", reducedMotion);
+      const preferencePaused = reducedMotion && !motionOverride;
+      const stopped = paused || preferencePaused;
+      shell.classList.toggle("is-reduced-motion", preferencePaused);
       motionButton.setAttribute("aria-pressed", String(stopped));
-      motionButton.disabled = reducedMotion;
-      motionButton.setAttribute("aria-label", reducedMotion
-        ? "3D motion paused by device setting"
+      motionButton.disabled = false;
+      motionButton.setAttribute("aria-label", preferencePaused
+        ? "Play 3D scene"
         : paused ? "Play 3D scene" : "Pause 3D scene");
     }
 
@@ -276,11 +278,12 @@ if (canvas && shell && motionButton) {
       if (!visible || document.hidden) return;
       const delta = Math.min(0.04, Math.max(0, (time - previousTime) / 1000));
       previousTime = time;
-      const moving = !paused && !reducedMotion;
+      const preferencePaused = reducedMotion && !motionOverride;
+      const moving = !paused && !preferencePaused;
 
       if (moving) autoRotation += delta * 0.2;
-      const hoverY = reducedMotion ? 0 : pointer.x * 0.27;
-      const hoverX = reducedMotion ? 0.08 : 0.08 + pointer.y * 0.12;
+      const hoverY = preferencePaused ? 0 : pointer.x * 0.27;
+      const hoverX = preferencePaused ? 0.08 : 0.08 + pointer.y * 0.12;
       const desiredY = -0.38 + autoRotation + manualRotation + hoverY;
       tiffin.rotation.y += (desiredY - tiffin.rotation.y) * (dragging ? 0.18 : 0.055);
       tiffin.rotation.x += (hoverX - tiffin.rotation.x) * 0.06;
@@ -300,7 +303,7 @@ if (canvas && shell && motionButton) {
         material.opacity = moving ? 0.1 + Math.sin(time * 0.0015 + index) * 0.045 : 0.13;
       });
 
-      world.rotation.z = reducedMotion ? 0 : pointer.x * -0.012;
+      world.rotation.z = preferencePaused ? 0 : pointer.x * -0.012;
       renderer.render(scene, camera);
       if (settleFrames > 0) settleFrames -= 1;
       if (moving || dragging || settleFrames > 0) frame = requestAnimationFrame(render);
@@ -352,13 +355,20 @@ if (canvas && shell && motionButton) {
     });
 
     motionButton.addEventListener("click", () => {
-      paused = !paused;
+      if (reducedMotion && !motionOverride) {
+        motionOverride = true;
+        paused = false;
+      } else {
+        paused = !paused;
+      }
       updateMotionControl();
       settleFrames = 2;
       requestFrame();
     });
     motionPreference.addEventListener("change", (event) => {
       reducedMotion = event.matches;
+      motionOverride = false;
+      paused = false;
       pointer.x = 0;
       pointer.y = 0;
       updateMotionControl();
