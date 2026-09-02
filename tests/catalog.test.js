@@ -38,33 +38,3 @@ test("COD orders start confirmed without being marked paid", () => {
   assert.equal(order.order_status, "confirmed");
   assert.equal(order.amount_paisa, 9900);
 });
-
-test("custom 3D tiffins use server-validated ingredient prices", () => {
-  const order = buildOrder({
-    ...validOrder,
-    mealId: "custom-tiffin",
-    frequency: "one-time",
-    quantity: 1,
-    customBase: "three-rotis",
-    customDal: "dal-tadka",
-    customSabzi: "paneer-masala",
-    customSide: "curd",
-    customSpice: "classic",
-    amountPaisa: 1
-  });
-  assert.equal(order.unit_price_paisa, 15500);
-  assert.equal(order.amount_paisa, 15500);
-  assert.match(order.meal_name, /Three rotis.*Paneer masala.*Classic/);
-});
-
-test("custom 3D tiffins reject unknown ingredients", () => {
-  assert.throws(() => buildOrder({
-    ...validOrder,
-    mealId: "custom-tiffin",
-    customBase: "free-everything",
-    customDal: "dal-tadka",
-    customSabzi: "paneer-masala",
-    customSide: "curd",
-    customSpice: "classic"
-  }), /valid tiffin base/);
-});

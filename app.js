@@ -12,38 +12,13 @@
     "ghar-ka-veg": "Ghar Ka Veg",
     "homestyle-non-veg": "Homestyle Non-Veg",
     "south-indian-box": "South Indian Box",
-    "light-and-fit": "Light & Fit",
-    "custom-tiffin": "My 3D Tiffin"
+    "light-and-fit": "Light & Fit"
   };
-  const customIngredients = {
-    base: {
-      "jeera-rice": { name: "Jeera rice", pricePaisa: 3500 },
-      "three-rotis": { name: "Three rotis", pricePaisa: 3000 },
-      "brown-rice": { name: "Brown rice", pricePaisa: 4500 }
-    },
-    dal: {
-      "dal-tadka": { name: "Dal tadka", pricePaisa: 3500 },
-      rajma: { name: "Rajma", pricePaisa: 4500 },
-      chole: { name: "Chole", pricePaisa: 4500 }
-    },
-    sabzi: {
-      "seasonal-sabzi": { name: "Seasonal sabzi", pricePaisa: 4000 },
-      "paneer-masala": { name: "Paneer masala", pricePaisa: 6500 },
-      "soy-keema": { name: "Soy keema", pricePaisa: 5500 }
-    },
-    side: {
-      salad: { name: "Fresh salad", pricePaisa: 2000 },
-      curd: { name: "Homemade curd", pricePaisa: 2500 },
-      pickle: { name: "House pickle", pricePaisa: 1000 }
-    }
-  };
-  const customSpiceNames = { mild: "Mild", classic: "Classic", fiery: "Fiery" };
-  const defaultCustomTiffin = { customBase: "three-rotis", customDal: "dal-tadka", customSabzi: "paneer-masala", customSide: "curd", customSpice: "classic" };
   const frequencyMeals = { "one-time": 1, weekly: 6, monthly: 26 };
   const frequencyNames = { "one-time": "One-time", weekly: "Weekly", monthly: "Monthly" };
   const deliveryNames = { lunch: "Lunch · 12:00–2:00 PM", dinner: "Dinner · 7:00–9:00 PM" };
 
-  const state = { database: false, onlinePayments: false, paymentMode: "test", currentOrder: null, currentPhone: "", customTiffin: { ...defaultCustomTiffin } };
+  const state = { database: false, onlinePayments: false, paymentMode: "test", currentOrder: null, currentPhone: "" };
   const header = document.querySelector("[data-header]");
   const nav = document.querySelector("[data-nav]");
   const navToggle = document.querySelector("[data-nav-toggle]");
@@ -70,21 +45,6 @@
 
   function currency(paisa) {
     return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(paisa / 100);
-  }
-
-  function customTiffinDetails(payload) {
-    const picked = [
-      customIngredients.base[payload.customBase],
-      customIngredients.dal[payload.customDal],
-      customIngredients.sabzi[payload.customSabzi],
-      customIngredients.side[payload.customSide]
-    ];
-    if (picked.some(function (item) { return !item; })) return null;
-    const spice = customSpiceNames[payload.customSpice] || customSpiceNames.classic;
-    return {
-      pricePaisa: picked.reduce(function (total, item) { return total + item.pricePaisa; }, 0),
-      name: `My 3D Tiffin · ${picked.map(function (item) { return item.name; }).join(" + ")} · ${spice}`
-    };
   }
 
   function showToast(message) {
@@ -173,10 +133,6 @@
 
   function resetOrderDialog() {
     orderForm.reset();
-    Object.entries({ base: "customBase", dal: "customDal", sabzi: "customSabzi", side: "customSide", spice: "customSpice" }).forEach(function (entry) {
-      const input = orderForm.querySelector(`[data-order-custom="${entry[0]}"]`);
-      if (input) input.value = state.customTiffin[entry[1]];
-    });
     orderForm.querySelector('input[value="cod"]').checked = true;
     orderForm.hidden = false;
     orderSuccess.hidden = true;
@@ -215,25 +171,6 @@
       window.setTimeout(function () { frequency.focus(); }, 20);
     });
   });
-  window.addEventListener("foodog:builder-order", function (event) {
-    resetOrderDialog();
-    const detail = event.detail || {};
-    state.customTiffin = {
-      customBase: detail.customBase || defaultCustomTiffin.customBase,
-      customDal: detail.customDal || defaultCustomTiffin.customDal,
-      customSabzi: detail.customSabzi || defaultCustomTiffin.customSabzi,
-      customSide: detail.customSide || defaultCustomTiffin.customSide,
-      customSpice: detail.customSpice || defaultCustomTiffin.customSpice
-    };
-    Object.entries({ base: "customBase", dal: "customDal", sabzi: "customSabzi", side: "customSide", spice: "customSpice" }).forEach(function (entry) {
-      const input = orderForm.querySelector(`[data-order-custom="${entry[0]}"]`);
-      if (input) input.value = state.customTiffin[entry[1]];
-    });
-    mealPlan.value = "custom-tiffin";
-    updateEstimate();
-    openDialog(orderDialog);
-    window.setTimeout(function () { frequency.focus(); }, 20);
-  });
   document.querySelectorAll("[data-open-manage]").forEach(function (button) {
     button.addEventListener("click", function () {
       manageForm.reset();
@@ -252,7 +189,7 @@
   });
 
   function updateEstimate() {
-    const price = mealPlan.value === "custom-tiffin" ? customTiffinDetails(state.customTiffin)?.pricePaisa : planPrices[mealPlan.value];
+    const price = planPrices[mealPlan.value];
     const meals = frequencyMeals[frequency.value] || 1;
     const count = Math.max(1, Number(quantity.value) || 1);
     estimatedTotal.textContent = price ? `${currency(price * meals * count)} · ${meals * count} ${meals * count === 1 ? "tiffin" : "tiffins"}` : "Select a meal";
@@ -300,9 +237,7 @@
   }
 
   function formPayload() {
-    const payload = Object.fromEntries(new FormData(orderForm).entries());
-    if (payload.mealId === "custom-tiffin") Object.assign(payload, state.customTiffin);
-    return payload;
+    return Object.fromEntries(new FormData(orderForm).entries());
   }
 
   function demoOrders() {
@@ -321,14 +256,13 @@
   }
 
   function createDemoOrder(payload) {
-    const custom = payload.mealId === "custom-tiffin" ? customTiffinDetails(payload) : null;
-    const unitPricePaisa = custom ? custom.pricePaisa : planPrices[payload.mealId];
+    const unitPricePaisa = planPrices[payload.mealId];
     const order = {
       reference: makeReference(),
       customerName: payload.customerName.trim(),
       phone: payload.phone.replace(/\D/g, "").replace(/^91(?=\d{10}$)/, ""),
       mealId: payload.mealId,
-      mealName: custom ? custom.name : planNames[payload.mealId],
+      mealName: planNames[payload.mealId],
       quantity: Number(payload.quantity),
       frequency: payload.frequency,
       frequencyLabel: frequencyNames[payload.frequency],

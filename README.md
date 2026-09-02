@@ -16,7 +16,6 @@ FoodOG is a free-first, full-stack tiffin ordering website rebuilt from the orig
 - Local browser demo mode when cloud services are not configured
 - Accessible forms, keyboard navigation, focus states, and reduced-motion support
 - Real-time Three.js/WebGL tiffin hero with drag interaction, pause control, and automatic reduced-motion/photo fallback
-- Interactive 3D tiffin builder with mood presets, ingredient compartments, live nutrition, and server-validated custom pricing
 - Exact 4K food masters plus optimized responsive WebP storefront images
 
 ## Local preview
@@ -53,7 +52,6 @@ tests/                Pricing and signature tests
 index.html             Customer storefront
 admin.html             Protected kitchen dashboard
 app.js                 Storefront behavior and checkout
-tiffin-builder.js      Interactive custom-meal UI and Three.js tiffin scene
 admin.js               Admin dashboard behavior
 styles.css             Shared responsive design system
 Tifin-Website-main/    Preserved original project
