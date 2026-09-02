@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#07110d">
+  <title>FoodOG Kitchen Admin</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <a class="skip-link" href="#admin-main">Skip to dashboard</a>
+  <header class="admin-header">
+    <a class="brand" href="index.html" aria-label="FoodOG storefront">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M37.6 8.6C25.5 9.3 15.8 15.2 12 24.4c-2.3 5.5-1.5 11.2 1.3 15 3.8-8.8 9.8-15.7 18.1-21-6.8 6.2-11.8 13.2-14.9 21 4.7 1.7 10.5.3 14.7-4 6.2-6.2 7.4-16.5 6.4-26.8Z"/></svg></span>
+      <span><strong>FoodOG</strong><small>Kitchen admin</small></span>
+    </a>
+    <a class="button button-outline" href="index.html">View storefront</a>
+  </header>
+
+  <main class="admin-main" id="admin-main">
+    <section class="admin-login" data-login-panel>
+      <div class="admin-login-copy">
+        <p class="eyebrow">Protected workspace</p>
+        <h1>Keep every tiffin moving.</h1>
+        <p>Sign in with the administrator account configured in Supabase. Customer and payment data never loads until access is verified.</p>
+        <ul class="admin-feature-list">
+          <li><span></span>See new COD and paid orders</li>
+          <li><span></span>Move meals from confirmed to delivered</li>
+          <li><span></span>Review cancellation requests</li>
+        </ul>
+      </div>
+      <form class="login-card" id="admin-login-form">
+        <p class="eyebrow">Admin sign in</p>
+        <h2>Welcome back.</h2>
+        <p class="login-status" data-login-status role="alert"></p>
+        <div class="field">
+          <label for="admin-email">Email address</label>
+          <input id="admin-email" name="email" type="email" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="admin-password">Password</label>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="button button-primary button-submit" type="submit" data-login-button>Sign in securely</button>
+        <p class="form-note">The site owner creates admin accounts; there is no public registration.</p>
+      </form>
+    </section>
+
+    <section class="dashboard" data-dashboard hidden>
+      <div class="dashboard-topbar">
+        <div><p class="eyebrow">Kitchen dashboard</p><h1>Today’s orders.</h1><p data-dashboard-subtitle>Live data from the FoodOG order database.</p></div>
+        <div class="dashboard-actions"><button class="button button-outline" type="button" data-refresh>Refresh</button><button class="button button-quiet" type="button" data-logout>Sign out</button></div>
+      </div>
+
+      <div class="metric-grid" aria-label="Order summary">
+        <article><span>Total orders</span><strong data-metric-total>0</strong><small>Latest 100</small></article>
+        <article><span>Active kitchen</span><strong data-metric-active>0</strong><small>Needs attention</small></article>
+        <article><span>Paid online</span><strong data-metric-paid>0</strong><small>Verified payments</small></article>
+        <article><span>Paid revenue</span><strong data-metric-revenue>₹0</strong><small>Latest 100</small></article>
+      </div>
+
+      <div class="orders-panel">
+        <div class="orders-toolbar">
+          <div><h2>Order queue</h2><p data-order-count>0 orders</p></div>
+          <div class="field filter-field">
+            <label for="status-filter">Filter by status</label>
+            <select id="status-filter" data-status-filter>
+              <option value="">All statuses</option>
+              <option value="payment_pending">Payment pending</option>
+              <option value="payment_failed">Payment failed</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="preparing">Preparing</option>
+              <option value="out_for_delivery">Out for delivery</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancellation_requested">Cancellation requested</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="admin-message" data-admin-message role="status" hidden></div>
+        <div class="table-scroll">
+          <table class="orders-table">
+            <thead><tr><th>Order</th><th>Customer</th><th>Meal</th><th>Total</th><th>Payment</th><th>Status</th><th>Placed</th></tr></thead>
+            <tbody data-orders-body></tbody>
+          </table>
+        </div>
+        <div class="empty-orders" data-empty-orders hidden><strong>No orders here yet.</strong><p>New orders will appear as soon as customers check out.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="dialog dialog-small" id="order-details-dialog" aria-labelledby="details-title">
+    <div class="dialog-shell">
+      <button class="dialog-close" type="button" aria-label="Close order details" data-close-details><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <div class="dialog-heading"><p class="eyebrow">Order details</p><h2 id="details-title" data-detail-reference></h2></div>
+      <dl class="details-list">
+        <div><dt>Customer</dt><dd data-detail-customer></dd></div>
+        <div><dt>Mobile</dt><dd data-detail-phone></dd></div>
+        <div><dt>Address</dt><dd data-detail-address></dd></div>
+        <div><dt>Meal plan</dt><dd data-detail-meal></dd></div>
+        <div><dt>Delivery</dt><dd data-detail-delivery></dd></div>
+        <div><dt>Payment</dt><dd data-detail-payment></dd></div>
+      </dl>
+      <div class="field detail-status-field">
+        <label for="detail-status">Update order status</label>
+        <select id="detail-status" data-detail-status>
+          <option value="confirmed">Confirmed</option>
+          <option value="preparing">Preparing</option>
+          <option value="out_for_delivery">Out for delivery</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <button class="button button-primary button-submit" type="button" data-save-status>Save status</button>
+      <p class="form-note" data-detail-note role="status"></p>
+    </div>
+  </dialog>
+</body>
+</html>
