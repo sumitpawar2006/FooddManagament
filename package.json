@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "check": "node --check app.js && node --check admin.js"
+    "check": "node --check app.js && node --check admin.js && node --check hero-3d.js && node --check tiffin-builder.js && node --check server/catalog.js"
   },
   "engines": {
     "node": ">=20"

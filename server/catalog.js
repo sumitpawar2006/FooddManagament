@@ -51,6 +51,31 @@ export const deliveryWindows = Object.freeze({
   dinner: "Dinner · 7:00–9:00 PM"
 });
 
+export const customIngredients = Object.freeze({
+  base: Object.freeze({
+    "jeera-rice": Object.freeze({ name: "Jeera rice", pricePaisa: 3500 }),
+    "three-rotis": Object.freeze({ name: "Three rotis", pricePaisa: 3000 }),
+    "brown-rice": Object.freeze({ name: "Brown rice", pricePaisa: 4500 })
+  }),
+  dal: Object.freeze({
+    "dal-tadka": Object.freeze({ name: "Dal tadka", pricePaisa: 3500 }),
+    rajma: Object.freeze({ name: "Rajma", pricePaisa: 4500 }),
+    chole: Object.freeze({ name: "Chole", pricePaisa: 4500 })
+  }),
+  sabzi: Object.freeze({
+    "seasonal-sabzi": Object.freeze({ name: "Seasonal sabzi", pricePaisa: 4000 }),
+    "paneer-masala": Object.freeze({ name: "Paneer masala", pricePaisa: 6500 }),
+    "soy-keema": Object.freeze({ name: "Soy keema", pricePaisa: 5500 })
+  }),
+  side: Object.freeze({
+    salad: Object.freeze({ name: "Fresh salad", pricePaisa: 2000 }),
+    curd: Object.freeze({ name: "Homemade curd", pricePaisa: 2500 }),
+    pickle: Object.freeze({ name: "House pickle", pricePaisa: 1000 })
+  })
+});
+
+const customSpices = Object.freeze({ mild: "Mild", classic: "Classic", fiery: "Fiery" });
+
 function requiredText(value, field, maxLength) {
   const text = String(value || "").trim().replace(/\s+/g, " ");
   if (!text) throw new HttpError(400, `${field} is required.`);
@@ -65,8 +90,31 @@ export function normalizePhone(value) {
   return normalized;
 }
 
+function customChoice(group, value, label) {
+  const choices = customIngredients[group];
+  const key = String(value || "");
+  if (!Object.hasOwn(choices, key)) throw new HttpError(400, `Choose a valid ${label}.`);
+  return choices[key];
+}
+
+function customMeal(payload) {
+  const picked = [
+    customChoice("base", payload.customBase, "tiffin base"),
+    customChoice("dal", payload.customDal, "dal"),
+    customChoice("sabzi", payload.customSabzi, "sabzi"),
+    customChoice("side", payload.customSide, "side")
+  ];
+  const spiceKey = String(payload.customSpice || "");
+  if (!Object.hasOwn(customSpices, spiceKey)) throw new HttpError(400, "Choose a valid spice level.");
+  return {
+    id: "custom-tiffin",
+    name: `My 3D Tiffin · ${picked.map((item) => item.name).join(" + ")} · ${customSpices[spiceKey]}`,
+    pricePaisa: picked.reduce((total, item) => total + item.pricePaisa, 0)
+  };
+}
+
 export function buildOrder(payload) {
-  const meal = meals.find((item) => item.id === payload.mealId);
+  const meal = payload.mealId === "custom-tiffin" ? customMeal(payload) : meals.find((item) => item.id === payload.mealId);
   if (!meal) throw new HttpError(400, "Choose a valid meal.");
 
   const frequency = frequencies[payload.frequency];

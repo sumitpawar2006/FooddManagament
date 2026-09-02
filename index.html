@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
   <script type="module" src="hero-3d.js"></script>
+  <script type="module" src="tiffin-builder.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -41,6 +42,7 @@
       </button>
 
       <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation" data-nav>
+        <a href="#tiffin-builder">Build yours</a>
         <a href="#menu">Menu</a>
         <a href="#how-it-works">How it works</a>
         <a href="#made-for-you">For you</a>
@@ -62,7 +64,7 @@
         <h1>Ghar jaisa. <em>Delivered beautifully.</em></h1>
         <p class="hero-intro">Real home-style meals, packed fresh and delivered around your day. Pick a tiffin once—or let us keep the whole month sorted.</p>
         <div class="hero-actions">
-          <button class="button button-primary button-large" type="button" data-open-order>Build my meal plan</button>
+          <a class="button button-primary button-large" href="#tiffin-builder">Build my 3D tiffin</a>
           <a class="button button-outline button-large" href="#menu">Explore the menu</a>
         </div>
         <ul class="trust-list" aria-label="Service benefits">
@@ -139,6 +141,86 @@
           <small>Familiar food delivered around the rhythm of your workday.</small>
           <span class="audience-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
         </button>
+      </div>
+    </section>
+
+    <section class="section builder-section" id="tiffin-builder">
+      <div class="section-heading builder-heading" data-reveal>
+        <div><p class="eyebrow">Only at FoodOG</p><h2>Your meal. Built live in 3D.</h2></div>
+        <p>Choose one item for every compartment. The tiffin, nutrition, and honest per-meal price update together.</p>
+      </div>
+
+      <div class="builder-shell" data-builder-shell data-reveal>
+        <div class="builder-stage" data-builder-stage>
+          <div class="builder-stage-glow" aria-hidden="true"></div>
+          <div class="builder-fallback" aria-hidden="true">
+            <span data-builder-fallback="base"></span><span data-builder-fallback="dal"></span><span data-builder-fallback="sabzi"></span><span data-builder-fallback="side"></span>
+          </div>
+          <canvas class="builder-canvas" data-builder-canvas aria-hidden="true"></canvas>
+          <div class="builder-hotspots" aria-label="3D tiffin compartments">
+            <button type="button" data-builder-hotspot="base" aria-label="Swap the base ingredient"><span>Base</span></button>
+            <button type="button" data-builder-hotspot="dal" aria-label="Swap the dal"><span>Dal</span></button>
+            <button type="button" data-builder-hotspot="sabzi" aria-label="Swap the sabzi"><span>Sabzi</span></button>
+            <button type="button" data-builder-hotspot="side" aria-label="Swap the side"><span>Side</span></button>
+          </div>
+          <div class="builder-stage-copy">
+            <span class="builder-live"><i aria-hidden="true"></i> Live 3D builder</span>
+            <strong data-builder-stage-title>Comfort tiffin</strong>
+            <small>Drag to rotate · tap a bowl to swap</small>
+          </div>
+          <button class="builder-motion" type="button" aria-label="Pause 3D tiffin" aria-pressed="false" data-builder-motion>
+            <svg class="builder-pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6v12M16 6v12"/></svg>
+            <svg class="builder-play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 9 6-9 6V6Z"/></svg>
+          </button>
+          <div class="builder-compartment-labels" aria-hidden="true"><span>Base</span><span>Dal</span><span>Sabzi</span><span>Side</span></div>
+        </div>
+
+        <form class="builder-controls" id="tiffin-builder-form">
+          <div class="builder-presets" aria-labelledby="preset-label">
+            <span id="preset-label">Start with a mood</span>
+            <div><button type="button" class="is-active" data-builder-preset="comfort" aria-pressed="true">Comfort</button><button type="button" data-builder-preset="light" aria-pressed="false">Light</button><button type="button" data-builder-preset="protein" aria-pressed="false">Protein+</button></div>
+          </div>
+
+          <div class="builder-groups">
+            <fieldset data-builder-group="base"><legend><span>01</span> Pick a base</legend><div class="builder-choice-grid">
+              <label><input type="radio" name="customBase" value="jeera-rice"><span><strong>Jeera rice</strong><small>₹35 · 260 kcal</small></span></label>
+              <label><input type="radio" name="customBase" value="three-rotis" checked><span><strong>Three rotis</strong><small>₹30 · 270 kcal</small></span></label>
+              <label><input type="radio" name="customBase" value="brown-rice"><span><strong>Brown rice</strong><small>₹45 · 230 kcal</small></span></label>
+            </div></fieldset>
+
+            <fieldset data-builder-group="dal"><legend><span>02</span> Choose your dal</legend><div class="builder-choice-grid">
+              <label><input type="radio" name="customDal" value="dal-tadka" checked><span><strong>Dal tadka</strong><small>₹35 · 10g protein</small></span></label>
+              <label><input type="radio" name="customDal" value="rajma"><span><strong>Rajma</strong><small>₹45 · 12g protein</small></span></label>
+              <label><input type="radio" name="customDal" value="chole"><span><strong>Chole</strong><small>₹45 · 13g protein</small></span></label>
+            </div></fieldset>
+
+            <fieldset data-builder-group="sabzi"><legend><span>03</span> Add a sabzi</legend><div class="builder-choice-grid">
+              <label><input type="radio" name="customSabzi" value="seasonal-sabzi"><span><strong>Seasonal sabzi</strong><small>₹40 · 170 kcal</small></span></label>
+              <label><input type="radio" name="customSabzi" value="paneer-masala" checked><span><strong>Paneer masala</strong><small>₹65 · 17g protein</small></span></label>
+              <label><input type="radio" name="customSabzi" value="soy-keema"><span><strong>Soy keema</strong><small>₹55 · 19g protein</small></span></label>
+            </div></fieldset>
+
+            <fieldset data-builder-group="side"><legend><span>04</span> Finish with a side</legend><div class="builder-choice-grid">
+              <label><input type="radio" name="customSide" value="salad"><span><strong>Fresh salad</strong><small>₹20 · crisp</small></span></label>
+              <label><input type="radio" name="customSide" value="curd" checked><span><strong>Homemade curd</strong><small>₹25 · cooling</small></span></label>
+              <label><input type="radio" name="customSide" value="pickle"><span><strong>House pickle</strong><small>₹10 · punchy</small></span></label>
+            </div></fieldset>
+          </div>
+
+          <div class="builder-spice">
+            <label for="custom-spice"><span>Spice level</span><strong data-builder-spice-label>Classic</strong></label>
+            <input id="custom-spice" name="customSpice" type="range" min="1" max="3" step="1" value="2">
+            <div aria-hidden="true"><span>Mild</span><span>Classic</span><span>Fiery</span></div>
+          </div>
+
+          <div class="builder-total" role="status" aria-live="polite" aria-atomic="true">
+            <div><span>Your tiffin</span><strong data-builder-total>₹155</strong></div>
+            <dl><div><dt>Energy</dt><dd data-builder-calories>860 kcal</dd></div><div><dt>Protein</dt><dd data-builder-protein>40g</dd></div></dl>
+            <p data-builder-summary>Three rotis, Dal tadka, Paneer masala, Homemade curd · Classic spice</p>
+          </div>
+          <button class="button button-primary button-large builder-order" type="submit">Order this exact tiffin <span aria-hidden="true">→</span></button>
+          <p class="builder-note">Nutrition values are estimates. Final checkout total is calculated securely from the selected ingredients.</p>
+        </form>
       </div>
     </section>
 
@@ -276,9 +358,15 @@
                 <option value="homestyle-non-veg">Homestyle Non-Veg — ₹149</option>
                 <option value="south-indian-box">South Indian Box — ₹119</option>
                 <option value="light-and-fit">Light &amp; Fit — ₹129</option>
+                <option value="custom-tiffin">My 3D Tiffin — custom price</option>
               </select>
               <span class="field-error" id="meal-plan-error"></span>
             </div>
+            <input type="hidden" name="customBase" value="three-rotis" data-order-custom="base">
+            <input type="hidden" name="customDal" value="dal-tadka" data-order-custom="dal">
+            <input type="hidden" name="customSabzi" value="paneer-masala" data-order-custom="sabzi">
+            <input type="hidden" name="customSide" value="curd" data-order-custom="side">
+            <input type="hidden" name="customSpice" value="classic" data-order-custom="spice">
             <div class="field">
               <label for="frequency">Frequency <span aria-hidden="true">*</span></label>
               <select id="frequency" name="frequency" required><option value="one-time">One-time</option><option value="weekly">Weekly · 6 meals</option><option value="monthly">Monthly · 26 meals</option></select>
